@@ -7,6 +7,7 @@ class Ktrainer {
     this.time      = 60;
     this.isRunning = false;
     this.level     = sessionStorage.getItem('level');
+    this.levelTxt  = this.kTrainer.find('#level');
 
     if (this.level === null) {
       sessionStorage.setItem('level', 1);
@@ -14,6 +15,7 @@ class Ktrainer {
     }
 
     this.setupBtn();
+    this.levelTxt.find('span').text(this.level);
   }
 
   setupBtn() {
@@ -27,20 +29,23 @@ class Ktrainer {
   }
 
   updateTimer() {
-
-    this.time--;
-
     if(this.time >= 0) {
-      $(this.timer).find('span').text(this.time);
+
       if(this.level % 2 === 0) {
-        if((60 - this.time) % 2 === 0) {
-          window.navigator.vibrate(200);
-          $(this.timer).toggleClass('contract');  
+
+        if((60 - this.time) % 2 === 0 && this.time !== 60) {
+          window.navigator.vibrate(300);
+          $(this.timer).toggleClass('contract');
+        } else if(this.time === 60) {
+          window.navigator.vibrate(300);
         }
       } else {
-        if((60 - this.time) % 5 === 0) {
-          window.navigator.vibrate(200);
+
+        if((60 - this.time) % 5 === 0 && this.time !== 60) {
+          window.navigator.vibrate(300);
           $(this.timer).toggleClass('contract'); 
+        } else if (this.time === 60) {
+          window.navigator.vibrate(300); 
         }
       }
 
@@ -50,6 +55,9 @@ class Ktrainer {
       this.level++;
       sessionStorage.setItem('level', this.level);
     }
+
+    $(this.timer).find('span').text(this.time);
+    this.time--;
   }
 
   startTimer() {
@@ -64,6 +72,7 @@ class Ktrainer {
     $(this.timer).find('span').text(this.time);
     $(this.timer).removeClass('contract');
     this.btn.html('Start');
+    this.levelTxt.find('span').text(this.level);
     clearInterval(this.interval);
   }
 }
