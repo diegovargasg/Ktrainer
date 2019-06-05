@@ -57,6 +57,7 @@ class Ktrainer {
     }
 
     $(this.timer).find('span').text(this.time);
+    this.levelTxt.find('span').text(this.level);
     this.time--;
   }
 
