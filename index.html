@@ -4,12 +4,17 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="manifest" href="manifest.json">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta name="theme-color" content="#3367D6">
 
     <title>K Trainer</title>
     <style type="text/css">
+      body {
+        background-color: #e9ecef;
+      }
       #timer {
         color: green;
         font-size: 28px;
@@ -51,6 +56,17 @@
     <script type="text/javascript">
       const form = $('#kTrainer');
       var kTrainer = new Ktrainer(form);
+    </script>
+    <script type="text/javascript">
+      // CODELAB: Register service worker.
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('sw.js')
+              .then((reg) => {
+                console.log('Service worker registered.', reg);
+              });
+        });
+      }
     </script>
   </body>
 </html>

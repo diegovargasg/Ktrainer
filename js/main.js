@@ -6,11 +6,11 @@ class Ktrainer {
     this.timer     = this.kTrainer.find('#timer');
     this.time      = 60;
     this.isRunning = false;
-    this.level     = sessionStorage.getItem('level');
+    this.level     = localStorage.getItem('level');
     this.levelTxt  = this.kTrainer.find('#level');
 
     if (this.level === null) {
-      sessionStorage.setItem('level', 1);
+      localStorage.setItem('level', 1);
       this.level = 1;
     }
 
@@ -34,30 +34,35 @@ class Ktrainer {
       if(this.level % 2 === 0) {
 
         if((60 - this.time) % 2 === 0 && this.time !== 60) {
-          window.navigator.vibrate(300);
+          window.navigator.vibrate(250);
           $(this.timer).toggleClass('contract');
         } else if(this.time === 60) {
-          window.navigator.vibrate(300);
+          window.navigator.vibrate(250);
         }
       } else {
 
         if((60 - this.time) % 5 === 0 && this.time !== 60) {
-          window.navigator.vibrate(300);
+          window.navigator.vibrate(250);
           $(this.timer).toggleClass('contract'); 
         } else if (this.time === 60) {
-          window.navigator.vibrate(300); 
+          window.navigator.vibrate(250); 
         }
       }
 
     } else {
-      this.stopTimer();
       //only here update the current level
       this.level++;
-      sessionStorage.setItem('level', this.level);
+      
+      if (this.level > 10) {
+        localStorage.setItem('level', 1);
+        this.level = 1;
+      } else {
+        localStorage.setItem('level', this.level);  
+      }
+      this.stopTimer();
     }
 
     $(this.timer).find('span').text(this.time);
-    this.levelTxt.find('span').text(this.level);
     this.time--;
   }
 
