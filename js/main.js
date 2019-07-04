@@ -3,6 +3,7 @@ class Ktrainer {
   constructor(kTrainer) {
     this.kTrainer  = kTrainer;
     this.btn       = this.kTrainer.find('#btn');
+    this.reset     = this.kTrainer.find('#reset');
     this.timer     = this.kTrainer.find('#timer');
     this.time      = 60;
     this.isRunning = false;
@@ -24,6 +25,15 @@ class Ktrainer {
         this.startTimer();  
       } else {
         this.stopTimer();
+      }
+    });
+
+    this.reset.on('click', () => {
+      if(this.isRunning) {
+        this.stopTimer();
+      } else {
+        this.level = 1;
+        this.stopTimer();  
       }
     });
   }
@@ -52,7 +62,7 @@ class Ktrainer {
     } else {
       //only here update the current level
       this.level++;
-      
+
       if (this.level > 10) {
         localStorage.setItem('level', 1);
         this.level = 1;
